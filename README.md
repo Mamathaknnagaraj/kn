@@ -1,4 +1,4 @@
-1.# program to rotate image
+1.# program to rotate image:
 
 import cv2
 
@@ -23,7 +23,7 @@ ax.axis('off')
 
 plt.imshow(img)
 
-# output
+# output:
 
 ![image](https://user-images.githubusercontent.com/96527272/148208929-6ba1c2a0-b2e9-4d08-8194-081563ec01a0.png)
 
@@ -80,7 +80,7 @@ plt.show()
 ![image](https://user-images.githubusercontent.com/96527272/149118758-2e25d482-0666-46c8-9d7b-df714526ac38.png)
 
 # 3. Write a program simulation and display of an image, negative of an image(Binary
-& Gray Scale)
+& Gray Scale):
 
 import cv2
 
@@ -178,7 +178,8 @@ for i, col in enumerate(color):
       
 plt.show()
 
-#output
+#output:
+
 ![image](https://user-images.githubusercontent.com/96527272/149121869-ebf15edf-6637-44eb-bf07-f5a28cd7f478.png)
 
 ![image](https://user-images.githubusercontent.com/96527272/149121925-569d73c4-ecf2-4845-b6db-7ede69008cf9.png)
@@ -186,3 +187,189 @@ plt.show()
 ![image](https://user-images.githubusercontent.com/96527272/149122030-20b6fdb6-5ed1-4306-ac72-cd913eb9c417.png)
 
 ![image](https://user-images.githubusercontent.com/96527272/149122063-934abecb-b84a-41b3-b85f-1c54348f48fa.png)
+
+#.4 program to perform transformation on image:
+
+#rotation
+
+img = cv.imread('air.jpg',0)
+
+rows,cols = img.shape
+
+# cols-1 and rows-1 are the coordinate limits.
+
+M = cv.getRotationMatrix2D(((cols-1)/2.0,(rows-1)/2.0),90,1)
+
+dst = cv.warpAffine(img,M,(cols,rows))
+
+#cv.imshow('img',dst)
+
+plt.subplot(121),plt.imshow(img),plt.title('Input')
+
+plt.subplot(122),plt.imshow(dst),plt.title('Output')
+
+plt.show()
+
+cv.waitKey(0)
+
+cv.destroyAllWindows()
+
+#output:
+
+![image](https://user-images.githubusercontent.com/96527272/149316158-efb58808-0ea3-47fb-8b8c-629e452a9fc1.png)
+
+![image](https://user-images.githubusercontent.com/96527272/149316270-9e7cbceb-4dde-4c2a-9cd2-93708da5caeb.png)
+
+#scaling
+
+img=cv.imread('air.jpg',cv.IMREAD_COLOR)
+
+resized=cv.resize(img,None,fx=1,fy=2,interpolation=cv.INTER_CUBIC)
+
+#cv.imshow("original pic",img)
+
+#cv.imshow("resized pic",resized)
+
+plt.subplot(121),plt.imshow(img),plt.title('Input')
+
+plt.subplot(122),plt.imshow(resized),plt.title('Output')
+
+plt.show()
+
+cv.waitKey()
+
+cv.destroyAllWindows()
+
+#output:
+
+![image](https://user-images.githubusercontent.com/96527272/149316556-6dd379e1-a75b-4c1c-8e1f-bfe5c90b6c75.png)
+
+![image](https://user-images.githubusercontent.com/96527272/149316607-db7013fe-68b7-4e1a-bc79-f897ab8dc96f.png)
+
+import numpy as np
+
+import cv2 as cv
+
+from matplotlib import pyplot as plt
+
+#translation
+
+img = cv.imread('air.jpg',0)
+
+rows,cols = img.shape
+
+M = np.float32([[1,0,100],[0,1,50]])
+
+dst = cv.warpAffine(img,M,(cols,rows))
+
+cv.imshow('img',dst)
+
+cv.waitKey(0)
+
+cv.destroyAllWindows()
+
+
+#.5 python program to read multiple images in directory:
+
+# import the modules
+
+import os
+
+from os import listdir
+ 
+# get the path or directory
+
+folder_dir = "C:\img"
+
+for images in os.listdir(folder_dir):
+ 
+    # check if the image end swith png or jpg or jpeg
+    
+    if (images.endswith(".png") or images.endswith(".jpg")\
+    
+        or images.endswith(".jpeg")):
+        
+        # display
+        
+        print(images)
+        
+#output
+
+air.jpg
+
+goku.jpg
+
+nature.jpg
+
+#6.mearging an images:
+
+from PIL import Image
+  
+img_01 = Image.open("goku.jpg")
+
+img_02 = Image.open("nature.jpg")
+
+  
+img_01_size = img_01.size
+
+img_02_size = img_02.size
+
+
+  
+print('img 1 size: ', img_01_size)
+
+print('img 2 size: ', img_02_size)
+
+  
+new_im = Image.new('RGB', (2*img_01_size[0],2*img_01_size[1]), (250,250,250))
+  
+new_im.paste(img_01, (0,0))
+
+new_im.paste(img_02, (img_01_size[0],0))
+
+  
+new_im.save("merged_images.png", "PNG")
+
+new_im.show()
+
+#output:
+
+img 1 size:  (922, 565)
+
+img 2 size:  (771, 480)
+
+#7.program to find a mean value of the image:
+
+import cv2
+  
+# Save image in set directory
+
+# Read RGB image
+
+img = cv2.imread('nature.jpg') 
+
+ # getting mean value
+ 
+mean = img.mean()
+  
+# printing mean value
+
+print("Mean Value for 0 channel : " + str(mean))
+
+# Output img with window name as 'image'
+
+cv2.imshow('image', img) 
+  
+# Maintain output window utill
+
+# user presses a key
+
+cv2.waitKey(0)        
+  
+# Destroying present windows on screen
+
+cv2.destroyAllWindows() 
+
+#.output
+
+Mean Value for 0 channel : 51.81252612047845
