@@ -1,4 +1,4 @@
-1.# program to rotate image:
+# 1. program to rotate image:
 
 import cv2
 
@@ -30,7 +30,7 @@ plt.imshow(img)
 
 ![image](https://user-images.githubusercontent.com/96527272/148208770-45fca79a-3673-4403-95e8-52f7c3e14b8d.png)
 
-2.# Write a program to contrast stretching of a low contrast image, Histogram, and
+# 2. Write a program to contrast stretching of a low contrast image, Histogram, and
 Histogram Equalization
  
  import cv2
@@ -75,11 +75,11 @@ plt.legend(('cdf','histogram'), loc = 'upper left')
 
 plt.show()
 
-#output
+# output
 
 ![image](https://user-images.githubusercontent.com/96527272/149118758-2e25d482-0666-46c8-9d7b-df714526ac38.png)
 
-# 3. Write a program simulation and display of an image, negative of an image(Binary
+ # 3. Write a program simulation and display of an image, negative of an image(Binary
 & Gray Scale):
 
 import cv2
@@ -178,7 +178,7 @@ for i, col in enumerate(color):
       
 plt.show()
 
-#output:
+# output:
 
 ![image](https://user-images.githubusercontent.com/96527272/149121869-ebf15edf-6637-44eb-bf07-f5a28cd7f478.png)
 
@@ -188,9 +188,9 @@ plt.show()
 
 ![image](https://user-images.githubusercontent.com/96527272/149122063-934abecb-b84a-41b3-b85f-1c54348f48fa.png)
 
-#.4 program to perform transformation on image:
+# 4. program to perform transformation on image:
 
-#rotation
+# rotation
 
 img = cv.imread('air.jpg',0)
 
@@ -214,13 +214,13 @@ cv.waitKey(0)
 
 cv.destroyAllWindows()
 
-#output:
+# output:
 
 ![image](https://user-images.githubusercontent.com/96527272/149316158-efb58808-0ea3-47fb-8b8c-629e452a9fc1.png)
 
 ![image](https://user-images.githubusercontent.com/96527272/149316270-9e7cbceb-4dde-4c2a-9cd2-93708da5caeb.png)
 
-#scaling
+# scaling
 
 img=cv.imread('air.jpg',cv.IMREAD_COLOR)
 
@@ -240,7 +240,7 @@ cv.waitKey()
 
 cv.destroyAllWindows()
 
-#output:
+# output:
 
 ![image](https://user-images.githubusercontent.com/96527272/149316556-6dd379e1-a75b-4c1c-8e1f-bfe5c90b6c75.png)
 
@@ -252,7 +252,7 @@ import cv2 as cv
 
 from matplotlib import pyplot as plt
 
-#translation
+# translation
 
 img = cv.imread('air.jpg',0)
 
@@ -267,9 +267,10 @@ cv.imshow('img',dst)
 cv.waitKey(0)
 
 cv.destroyAllWindows()
+# output:
 
 
-#.5 python program to read multiple images in directory:
+# 5. python program to read multiple images in directory:
 
 # import the modules
 
@@ -293,15 +294,15 @@ for images in os.listdir(folder_dir):
         
         print(images)
         
-#output
+# output:
 
-air.jpg
+![air](https://user-images.githubusercontent.com/96527272/149464266-4243a27e-8ec8-464c-bfcf-14f110dfe86e.jpg)
+![goku](https://user-images.githubusercontent.com/96527272/149464335-1eaaf08c-16f4-41c2-b755-4756480a970e.jpg)
+![nature](https://user-images.githubusercontent.com/96527272/149464373-82416a78-c822-4e5b-ab81-03e3d6d1c299.jpg)
 
-goku.jpg
 
-nature.jpg
 
-#6.mearging an images:
+# 6. mearging an images:
 
 from PIL import Image
   
@@ -332,13 +333,12 @@ new_im.save("merged_images.png", "PNG")
 
 new_im.show()
 
-#output:
+output:
 
 img 1 size:  (922, 565)
-
 img 2 size:  (771, 480)
 
-#7.program to find a mean value of the image:
+# 7. program to find a mean value of the image:
 
 import cv2
   
@@ -370,6 +370,82 @@ cv2.waitKey(0)
 
 cv2.destroyAllWindows() 
 
-#.output
+# output:
 
 Mean Value for 0 channel : 51.81252612047845
+
+# 7. python code for sudoku:
+import cv2 import numpy as np
+
+#Loading image contains lines
+
+img = cv2.imread('sudoku.jpg')
+
+#Convert to grayscale
+
+gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+
+#Apply Canny edge detection, return will be a binary image
+
+edges = cv2.Canny(gray,50,100,apertureSize = 3)
+
+#Apply Hough Line Transform, minimum lenght of line is 200 pixels
+
+lines = cv2.HoughLines(edges,1,np.pi/180,200)
+
+#Print and draw line on the original image
+
+for rho,theta in lines[0]:
+
+print(rho, theta)
+
+a = np.cos(theta)
+
+b = np.sin(theta)
+
+x0 = a*rho
+
+y0 = b*rho
+
+x1 = int(x0 + 1000*(-b))
+
+y1 = int(y0 + 1000*(a))
+
+x2 = int(x0 - 1000*(-b))
+
+y2 = int(y0 - 1000*(a))
+
+cv2.line(img,(x1,y1),(x2,y2),(0,0,255),2)
+
+#Show the result
+
+cv2.imshow("Line Detection", img)
+
+cv2.waitKey(0)
+
+cv2.destroyAllWindows()
+
+# output:
+
+# 8. python program to find total number of circle:
+
+import cv2
+import numpy as np
+
+img = cv2.imread('circle.jpg')
+mask = cv2.threshold(img[:, :, 0], 255, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
+
+stats = cv2.connectedComponentsWithStats(mask, 8)[2]
+label_area = stats[1:, cv2.CC_STAT_AREA]
+
+min_area, max_area = 50, 350  # min/max for a single circle
+singular_mask = (min_area < label_area) & (label_area <= max_area)
+circle_area = np.mean(label_area[singular_mask])
+
+n_circles = int(np.sum(np.round(label_area / circle_area)))
+
+print('Total circles:', n_circles)
+cv2.imshow('image', img)
+# output:
+
+
